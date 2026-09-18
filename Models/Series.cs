@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace SerieTrackeraspnet
+namespace SerieTrackeraspnet.Models
 {
     public class Serie
     {
