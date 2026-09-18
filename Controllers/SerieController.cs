@@ -4,7 +4,7 @@ using SerieTrackeraspnet.Models;
 namespace SerieTrackeraspnet.Controllers
 {
     [ApiController]
-   [Route("api/[controller]")]
+    [Route("api/[controller]")]
     public class SerieController : ControllerBase
     {
         private static readonly List<Serie> series = new List<Serie>
@@ -21,5 +21,42 @@ namespace SerieTrackeraspnet.Controllers
 
         }
 
-}
+        [HttpPost]
+        public IActionResult AddSerie(Serie serie)
+        {
+            serie.Id = series.Count == 0 ? 1 : series.Max(s => s.Id) + 1;
+            series.Add(serie);
+            return CreatedAtAction(nameof(GetSeries), new { id = serie.Id }, serie);
+        }
+
+        [HttpPut("{id}")]
+        public IActionResult UpdateSerie(int id, Serie updatedSerie)
+        {
+            var serie = series.FirstOrDefault(s => s.Id == id);
+            if (serie == null)
+            {
+                return NotFound();
+            }
+
+            serie.Title = updatedSerie.Title;
+            serie.Season = updatedSerie.Season;
+            serie.Episode = updatedSerie.Episode;
+            serie.Seen = updatedSerie.Seen;
+
+            return NoContent();
+        }
+        [HttpDelete("{id}")]
+        public IActionResult DeleteSerie(int id)
+        {
+            var serie = series.FirstOrDefault(s => s.Id == id);
+            if (serie == null)
+            {
+                return NotFound();
+            }
+
+            series.Remove(serie);
+            return NoContent();
+        }
+
+    }
 }
