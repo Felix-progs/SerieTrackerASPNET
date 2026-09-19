@@ -8,8 +8,10 @@ namespace SerieTrackeraspnet.Models
        
         public int Id {  get; set; }
         
+        [Range(1, int.MaxValue, ErrorMessage = "Episode must be at least 1")]
         public int Episode { get; set; }
 
+        [Range(1, int.MaxValue, ErrorMessage = "Season must be at least 1")]
         public int Season { get; set; }
 
         public bool Seen { get; set; }
