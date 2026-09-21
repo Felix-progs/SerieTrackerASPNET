@@ -57,6 +57,28 @@ namespace SerieTrackeraspnet.Controllers
             series.Remove(serie);
             return NoContent();
         }
+        [HttpPost("{id}/image")]
+public async Task<IActionResult> UploadImage(int id, IFormFile file)
+{
+    var serie = series.FirstOrDefault(s => s.Id == id);
+    if (serie == null)
+        return NotFound();
+
+    if (file.Length == 0)
+        return BadRequest("Ingen fil vald");
+
+    var fileName = $"{Guid.NewGuid()}{Path.GetExtension(file.FileName)}";
+    var filePath = Path.Combine("wwwroot/uploads", fileName);
+
+    using (var stream = new FileStream(filePath, FileMode.Create))
+    {
+        await file.CopyToAsync(stream);
+    }
+
+    serie.ImageUrl = $"/uploads/{fileName}";
+
+    return Ok(new { imageUrl = serie.ImageUrl });
+}
 
     }
 }
