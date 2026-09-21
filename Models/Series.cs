@@ -20,6 +20,8 @@ namespace SerieTrackeraspnet.Models
         [StringLength(100, ErrorMessage = "Title cannot exceed 100 characters")]
         public string Title { get; set;} = string.Empty;
 
+        public string? ImageUrl { get; set; }
+
 
 
 
