@@ -23,3 +23,4 @@ API:t startar på `http://localhost:5172`. Swagger finns på `/swagger`.
 - `POST /api/serie` lägg till
 - `PUT /api/serie/{id}` uppdatera (markera som sedd)
 - `DELETE /api/serie/{id}` ta bort
+- `POST /api/serie/{id}/image` ladda upp bild
